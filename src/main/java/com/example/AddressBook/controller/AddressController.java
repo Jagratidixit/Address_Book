@@ -1,4 +1,5 @@
 package com.example.AddressBook.controller;
+import com.example.AddressBook.dto.AddressDTO;
 import com.example.AddressBook.model.Address;
 import com.example.AddressBook.repository.AddressRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,13 @@ public class AddressController {
     private AddressRepo addressRepo;
 
     @PostMapping("/create")
-    public Address create(@RequestBody Address address) {
+    public Address create(@RequestBody AddressDTO addressDTO) {
+        Address address = new Address();
+        address.setName(addressDTO.getName());
+        address.setCity(addressDTO.getCity());
         return addressRepo.save(address);
     }
+
 
     @GetMapping("/")
     public List<Address> getAll() {
